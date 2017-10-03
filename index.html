@@ -1,0 +1,419 @@
+<html>
+<head>
+	<title>Login Screen</title>
+	<script src="script.js"></script>
+	<style>
+		/*Sign in page*/
+		body {
+			font-family: sans-serif;
+		}
+		#loginWrapper {
+			color: white;
+			top: 50%;
+			left: 50%;
+		}
+		#login {
+			height: 200px;
+			width: 400px;
+			background-color: #2b63db;
+			margin: 0 auto;
+			border-radius: 3px;
+		}
+		#title{
+			position: relative;
+			width: 100%;
+			top: 20px;
+			left: 15px;
+			font-size: 20px;
+		}
+		#employee {
+			margin: 0 auto;
+			width: 90%;
+			position: relative;
+			top: 40px;
+		}
+		#employeeIn {
+			position: relative;
+			left: 10px;
+		}
+		#password {
+			margin: 0 auto;
+			width: 90%;
+			position: relative;
+			top: 60px;
+		}
+		#secret {
+			position: relative;
+			left: 31px;
+		}
+		#buttonWrap {
+			position: relative;
+			top: 55px;
+			left: 207px;
+		}
+		#saveWrap {
+			position: relative;
+			top: 75px;
+			left: 10px;
+		}
+		/* End of Sign in */
+
+		/* Main Page */
+		#container {
+			display: inline;
+			margin:0 auto;
+			width: 100%;
+			height: 70%;
+		}
+		#filterWrap {
+			position: relative;
+			margin: 0 auto;
+			left: 30%;
+			top: 50px;
+		}
+		#filterBlock {
+			position: relative;
+			top: -20px;
+			width: 600px;
+			height: 150px;
+			background-color: #2b63db;
+			border-radius: 5px;
+			color: white;
+		}
+
+		#searchItem {
+			position: relative;
+			top: 20px;
+			left: 25px;
+		}
+		#refresh {
+			position: relative;
+			top: 20px;
+			left: 45px;
+		}
+		#dateFrom{
+			position: absolute;
+			top: 60px;
+			right: 300px;
+		}
+		#dateThrough {
+			position: absolute;
+			top: 62px;
+			right: 40px;
+		}
+
+		#checkWrap {
+			font-size: 13px;
+			position: relative;
+			top: 90px;
+			left: 20px;
+		}
+		#insertWrap {
+			position: absolute;
+			top: 21px;
+			right: 38px;
+		}
+
+		#timeLog {
+	      position: relative;
+	      top: 20px;
+	      left: 425px;
+	    }
+
+	    #wrapNum {
+	      position: relative;
+	      top: -25px;
+	      left: 770px;
+	    }
+
+	    .hrsWorked {
+	      display: inline-block;
+	    }
+
+	    #employeeTbl {
+	      position: relative;
+	      left: 270px;
+	      border-collapse: collapse;
+	      width: 55%;
+	      text-align: left;
+	      color: white;
+	    }
+	  
+	    th {
+	      border: 1px solid white;
+	      background-color: #2b63db;
+	      padding: 5px;
+	    }
+
+	    tr {
+	      background-color: #2b63db;
+	      padding: 5px;
+	    }
+
+	    td {
+	      border: 1px solid white;
+	      padding: 5px;
+	    }
+
+	    tbody {
+	      text-align: center;
+	    }
+	    /* End of Main Page */
+
+		/*Edit page*/
+	    #timeBox {
+	      position: absolute;
+	      height: 50%;
+	      width: 55%;
+	      background-color: #2b63db;
+	      margin-top: 10%;
+	      margin-left: 20%;
+	      border-radius: 7px;
+	      box-sizing: border-box;
+	      color: white;
+	    }
+
+	    #closeBtn {
+	    	position: absolute;
+		    color: white;
+		    float: right;
+		    right: 15px;
+		    font-size: 28px;
+		    font-weight: bold;
+		}
+
+		#closeBtn:hover,
+		#closeBtn:focus {
+		    color: black;
+		    text-decoration: none;
+		    cursor: pointer;
+		}
+
+	    #titleTime {
+	      position: absolute;
+	      top: 4%;
+	      left: 7%;
+	      font-size: 1.5em;
+	      font-weight: lighter;
+	    }
+
+	    #employeelbl {
+	      position: absolute;
+	      top: 20%;
+	      left: 7%;
+	    }
+
+	    #employeeId {
+	      position: relative;
+	      left: 15%;
+	    }
+
+	    #datelbl {
+	      position: absolute;
+	      top: 27%;
+	      left: 7%;
+	    }
+
+	    #dateIn {
+	      position: relative;
+	      left: 13.5%;
+	    }
+
+	    #hrsWorked {
+	      position: absolute;
+	      top: 20%;
+	      left: 45%;
+	    }
+	    #hrsIn {
+	      position: relative;
+	      left: 15%;
+	    }
+	    #bill-wrap {
+	      position: absolute;
+	      top: 27%;
+	      left: 44.5%;
+	    }
+
+	    #description {
+	      position: absolute;
+	      top: 40%;
+	      left: 7%;
+	    }
+
+	    #btn-wrap {
+	      position: absolute;
+	      top: 85%;
+	      left: 78%;
+	    }
+
+	    #saveBtn {
+	      padding: 5px;
+	      font-size: 30px;
+	    }
+
+	    #delete-wrap {
+	      position: absolute;
+	      top: 85%;
+	      left: 86%;
+	    }
+
+	    #delBtn {
+	      padding: 5px;
+	      font-size: 30px;
+	    }
+
+	    #desc-text {
+	      position: relative;
+	      top: 5%;
+	    }
+	    /* End of edit page */
+		#mainModal {
+		    display: none; /* Hidden by default */
+		    position: fixed; /* Stay in place */
+		    z-index: 1; /* Sit on top */
+		    left: 0;
+		    top: 0;
+		    width: 100%; /* Full width */
+		    height: 100%; /* Full height */
+		    overflow: auto; /* Enable scroll if needed */	
+		}
+		#editModal {
+		    display: none; /* Hidden by default */
+		    position: fixed; /* Stay in place */
+		    z-index: 1; /* Sit on top */
+		    left: 0;
+		    top: 0;
+		    width: 100%; /* Full width */
+		    height: 100%; /* Full height */
+		    overflow: auto; /* Enable scroll if needed */
+		    background-color: rgb(0,0,0); /* Fallback color */
+		    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		}
+
+	</style>
+</head>
+<body onload="load_body()">
+
+	<!-- Login page -->
+	<div id="signinModal" onload="signin_body()">
+		<div id="loginWrapper">
+			<div id="login">
+				<div id="title">Time Log Sign In</div>
+		
+				<div id="employee">Employee ID: 
+					<input type="text" id="employeeIn" required>
+				</div>
+
+				<div id="password">Password: 
+					<input type="password" id="secret" required>
+				</div>
+
+				<div id="saveWrap"> 
+					<input type="checkbox" id="saveInfo"> Remember Me
+				</div>
+
+				<div id="buttonWrap">
+					<button id="signIn" type="submit">Sign In</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Main page -->
+	<div id="mainModal" onload="start_body()">
+		<div id="container">
+			<div id="filterWrap">
+				<h1 id="filterTitle">Filters</h1>
+				<div id="filterBlock">
+
+					<label for="" id="searchItem">Description contains: <input type="text" id="searchIn">
+					</label>
+
+					<label for="" id="dateFrom">Date from: 
+						<input type="date" id="dateIn">
+					</label>
+
+					<label for="" id="dateThrough">through: 
+						<input type="date" id="dateOut">
+					</label>
+
+					<button type="button" id="refresh" onclick="click_refresh()">Refresh</button>
+
+					<div id="checkWrap">
+					<input type="checkbox" id="currEmployee"> Show Current Employee Only
+					</div>
+
+					<div id="insertWrap">
+						<button id="insertNew" onclick="document.getElementById('editModal').style.display = 'block';">Add New</button>
+					</div>
+
+				</div>
+			</div>
+
+			<h1 id="timeLog">Time Log Entries</h1>
+
+			<div id="wrapNum">
+		    	<div class="hrsWorked">Total Hours Worked: </div>
+		    	<div class="hrsWorked" id="sum">0</div>
+		  	</div>
+
+			<table id="employeeTbl">
+				<tbody>
+					<tr>
+						<th id="employeeHead">Employee ID</th>
+
+						<th id="dateCreated">Date</th>
+
+						<th id="hours">Hours</th>
+
+						<th id="desc">Description</th>
+
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+	</div>
+
+	<!-- Edit page -->
+	<div id="editModal" onload="edit_body()">
+		<div id="timeBox">
+			<div id="titleTime">Add New Entry</div>
+			<div id="closeBtn">&times;</div>
+
+			<!-- Employee ID -->
+			<label for="" id="employeelbl"> Employee ID
+				<input type="text" id="employeeId">
+			</label>
+
+			<!-- Date Worked -->
+			<label for="" id="datelbl"> Date Worked
+				<input type="date" id="dateIn">
+			</label>
+
+			<!--Hours worked -->
+			<label for="" id="hrsWorked">Hours Worked
+				<input type="text" id="hrsIn">
+			</label>
+
+			<div id="bill-wrap">
+				<input type="checkbox" name="" id="bill">Billable
+			</div>
+
+			<label id="description">Description
+			<br>
+			<textarea name="" id="descText" cols="110" rows="10"></textarea>
+			</label>
+
+			<div id="btn-wrap">
+			<input type="button" value="Save" id="saveBtn" onclick="saveCond()">
+			</div>
+			<div id="delete-wrap">
+				<input type="button" id="delBtn" value="Delete" onclick="deleteRow()">
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>
