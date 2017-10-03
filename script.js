@@ -3,6 +3,14 @@ var arr = [];
 
 function load_body() {
 
+	var meg = new employeeLogin("meg", "qwerty123");
+	var peter = new employeeLogin("peter", "family123");
+	var lois = new employeeLogin("lois", "guy123");
+	var chris = new employeeLogin("chris", "griffin123");
+	var stewie = new employeeLogin("stewie", "evilbaby123");
+	arr = [meg, peter, lois, chris, stewie];
+
+
 	if(localStorage.getItem("userInfo")) {
 		var eId = localStorage.getItem("userInfo");
 		employeeIn.value = eId;
@@ -16,17 +24,11 @@ function load_body() {
 		main.style.display = "block";
 	}
 
+	updateTable();
+
 }
-window.onload = function () {
 
-	var meg = new employeeLogin("meg", "qwerty123");
-	var peter = new employeeLogin("peter", "family123");
-	var lois = new employeeLogin("lois", "guy123");
-	var chris = new employeeLogin("chris", "griffin123");
-	var stewie = new employeeLogin("stewie", "evilbaby123");
-	arr = [meg, peter, lois, chris, stewie];
-
-	document.getElementById('signIn').onclick = function(){
+function signinCheck(){
 		var bool = authenticate(document.getElementById('saveInfo').checked);
 		if(bool) {
 			var main = document.getElementById('mainModal');
@@ -41,8 +43,6 @@ window.onload = function () {
 			alert("The Employee ID/Password combination is incorrect.");
 		}
 	}
-}
-
 
 function employeeLogin(id, pw) {
 	this.id = id;
@@ -131,7 +131,7 @@ function updateTable() {
 
 	clear_table();
 
-	if(sessionStorage.getItem('filter') || sessionStorage.getItem('dateIn') || sessionStorage.getItem('dateOut')){
+	if(sessionStorage.getItem('filter') || sessionStorage.getItem('dateInput') || sessionStorage.getItem('dateOut')){
 		filterList();
 		return;
 	}
@@ -150,7 +150,7 @@ function updateTable() {
 
 function click_refresh() {
 	sessionStorage.setItem('filter', searchIn.value.toLowerCase());
-	sessionStorage.setItem('dateIn', dateIn.value);
+	sessionStorage.setItem('dateInput', dateInput.value);
 	sessionStorage.setItem('dateOut', dateOut.value);
 	sessionStorage.setItem('currEmployee', currEmployee.checked);
 
@@ -162,7 +162,7 @@ function filterList() {
 	clear_table();
 
 	var filter = sessionStorage.getItem('filter');
-	var datein = sessionStorage.getItem('dateIn');
+	var datein = sessionStorage.getItem('dateInput');
 	var dateout = sessionStorage.getItem('dateOut');
 	var curr = sessionStorage.getItem('currEmployee');
 	var user = sessionStorage.getItem('user');
@@ -204,10 +204,6 @@ function filterList() {
 // Edit page
 function edit_body() {
 
-	if(!sessionStorage.getItem("user")){
-		location.href = "signIn.html";
-	}
-
 	if(sessionStorage.getItem('index')){
 		editEntry();
 	}
@@ -219,6 +215,13 @@ function edit_body() {
 }
 
 var array;
+
+function clearForm() {
+	employeeId.value = "";
+	document.getElementById('dateIn').valueAsDate = new Date();
+	hrsIn.value = "";
+	descText.value = "";
+}
 
 function saveCond() {
 	if (!sessionStorage.getItem('index')) {
@@ -255,20 +258,24 @@ function initNewEmployee(){
 		return;
 	}
 
+	var datetemp = document.getElementById('dateIn').value;
+	console.log(datetemp);
 	var temp = new employee(employeeId.value, hrsIn.value, dateIn.value, descText.value, bill.checked);
 
 	array.push(temp);
 
 	localStorage.setItem("arr", JSON.stringify(array));
-	window.location.href = "main.html";
+	updateTable();
+	clearForm();
+	document.getElementById('editModal').style.display = "none";
 
 
 }
 
 function redirect(index) {
 	sessionStorage.setItem('index', index);
-
 	document.getElementById('editModal').style.display = "block";
+	editEntry();
 }
 
 function editEntry() {
@@ -289,14 +296,6 @@ function editEntry() {
 }
 
 function saveEdited() {
-
-	// if(sessionStorage.getItem('fList')) {
-	// 	array = JSON.parse(sessionStorage.getItem('fList'));
-	// 	var index = sessionStorage.getItem('index');
-	// 	var j = index - 1;
-	// 	array[j] = new employee(employeeId.value, hrsIn.value, dateIn.value, descText.value, bill.checked);
-	// 	window.location.href = 'main.html';
-	// }
 
 	if(employeeId.value.length == 0){
 		alert("Fill in Employee ID");
@@ -323,12 +322,19 @@ function saveEdited() {
 
 	var pos = sessionStorage.getItem('index');
 	var i = pos - 1;
-	var edited = new employee(employeeId.value, hrsIn.value, dateIn.value, descText.value, bill.checked);
+	
+	var datetemp = document.getElementById('dateIn').value;
+	console.log(datetemp);
+	
+	var edited = new employee(employeeId.value, hrsIn.value, datetemp, descText.value, bill.checked);
+	
 	array[i] = edited;
 	localStorage.setItem("arr", JSON.stringify(array));
 	sessionStorage.removeItem('index');
-	window.location.href = "main.html";
-
+	
+	updateTable();
+	clearForm();
+	document.getElementById('editModal').style.display = 'none';
 }
 
 function deleteRow() {
@@ -339,7 +345,8 @@ function deleteRow() {
 	array.splice(i, 1);
 	localStorage.setItem('arr', JSON.stringify(array));
 	sessionStorage.removeItem('index');
-	window.location.href = 'main.html';
+	updateTable();
+	document.getElementById('editModal').style.display = 'none';
 
 }
 
@@ -350,5 +357,11 @@ function employee(id, hours, date, desc, bill){
 	this.date = date;
 	this.desc = desc;
 	this.bill = bill;
+}
+window.onclick = function (event) {
+	if(event.target == document.getElementById('editModal')) {
+		clearForm();
+		document.getElementById('editModal').style.display = "none";
+	}
 }
 // End of edit page
